@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -14,9 +15,12 @@ namespace MovieMash
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IWebHostEnvironment _appHost;
+        
+        public Startup(IConfiguration configuration,IWebHostEnvironment appHost)
         {
             Configuration = configuration;
+            _appHost=appHost;
         }
 
         public IConfiguration Configuration { get; }
@@ -30,7 +34,9 @@ namespace MovieMash
 
             services.AddTransient<IMovieRepository,MovieRepository>();
             services.AddTransient<IRatingService,EloRatingService>();
-            services.AddEntityFrameworkSqlite().AddDbContext<MovieDbContext>();
+            services.AddEntityFrameworkSqlite().AddDbContext<MovieDbContext>(options=>{
+                options.UseSqlite($"Data Source={_appHost.ContentRootPath}/movie.db");
+            });
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
