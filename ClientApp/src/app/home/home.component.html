@@ -1,0 +1,11 @@
+<a class="txt-center vote" [routerLink]="['/vote']">Vote</a>
+<ul>
+  <li *ngFor="let movie of movies" class="movie">
+    <div class="poster">
+      <img [src]="movie.poster">
+    </div>
+
+    <h3>{{movie.name}}</h3>
+    <h4>{{movie.score|number}}</h4>
+  </li>
+</ul>

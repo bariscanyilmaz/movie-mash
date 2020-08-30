@@ -1,0 +1,36 @@
+p {
+  word-break: break-all;
+  white-space: normal;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .chosen {
+    margin-right: 5px;
+    margin-left: 5px;
+  }
+
+  .poster {
+    height: 220px;
+    width: 120px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    .poster {
+      height: 400px;
+      width: 280px;
+    }
+
+    .chosen{
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+  }
+
+  
+}
