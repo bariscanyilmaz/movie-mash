@@ -8,7 +8,7 @@ on:
     - release/*
 
 jobs:
-  build_icolors:
+  build_movie-mash:
     runs-on: ubuntu-16.04
     steps:
     - uses: actions/checkout@v1
