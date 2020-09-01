@@ -12,6 +12,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
+    - uses: jwsi/secret-parser@v1
+        with:
+          filename: appsettings.json
+          secret-name: connection_string
+          secret-value: ${{ secrets.connection_string }}
     - name: Build and deploy the Docker image
       env: 
         HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
