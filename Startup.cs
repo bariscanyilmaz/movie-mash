@@ -11,16 +11,16 @@ using Microsoft.Extensions.Hosting;
 using MovieMash.Models;
 using MovieMash.Services;
 
+
 namespace MovieMash
 {
     public class Startup
     {
-        private readonly IWebHostEnvironment _appHost;
         
-        public Startup(IConfiguration configuration,IWebHostEnvironment appHost)
+        public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            _appHost=appHost;
+            
         }
 
         public IConfiguration Configuration { get; }
@@ -31,12 +31,12 @@ namespace MovieMash
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
 
+            services.AddDbContext<MovieDbContext>(options=>options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddTransient<IMovieRepository,MovieRepository>();
-            services.AddTransient<IRatingService,EloRatingService>();
-            services.AddEntityFrameworkSqlite().AddDbContext<MovieDbContext>(options=>{
-                options.UseSqlite($"Data Source={_appHost.ContentRootPath}/movie.db");
-            });
+            services.AddTransient<IMovieRepository, MovieRepository>();
+            services.AddTransient<IRatingService, EloRatingService>();
+            
+            
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
@@ -65,7 +65,7 @@ namespace MovieMash
 
             app.Use(next => context =>
             {
-                if (context.Request.Path.Value.IndexOf("/api/Movies/Rate",StringComparison.OrdinalIgnoreCase) != -1)
+                if (context.Request.Path.Value.IndexOf("/api/Movies/Rate", StringComparison.OrdinalIgnoreCase) != -1)
                 {
                     var tokens = antiforgery.GetAndStoreTokens(context);
                     context.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken, new CookieOptions() { HttpOnly = false, Path = "/" });
@@ -94,7 +94,7 @@ namespace MovieMash
             {
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
                 // see https://go.microsoft.com/fwlink/?linkid=864501
-                
+
                 spa.Options.SourcePath = "ClientApp";
 
                 if (env.IsDevelopment())
