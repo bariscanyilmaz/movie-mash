@@ -13,7 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - uses: jwsi/secret-parser@v1
-        with:
+      with:
           filename: appsettings.json
           secret-name: connection_string
           secret-value: ${{ secrets.connection_string }}
