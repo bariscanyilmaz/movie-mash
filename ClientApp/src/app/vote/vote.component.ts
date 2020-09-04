@@ -1,9 +1,11 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { MovieService } from '../services/movie.service';
 import { Movie } from '../models/movie';
+import { Chosen } from "../models/chosen";
 import { RateViewModel } from '../models/rateViewModel';
 import { k_combinations, combinations } from "../utility";
 import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-vote',
@@ -12,18 +14,19 @@ import { Router } from '@angular/router';
 })
 export class VoteComponent implements OnInit {
 
-  combinations: Movie[][] = [];
-  chosen: Movie[];
+
+  combinations:Movie[][];
+  chosen:Chosen;
 
   constructor(private movieService: MovieService,private router:Router) {
 
   }
 
   ngOnInit(): void {
-
     this.movieService.getAll().subscribe(res => {
+      
+      this.combinations =(k_combinations(res, 2).shuffle());
 
-      this.combinations = k_combinations(res, 2).shuffle();
     }, err => console.error(err), () => {
       this.nextVote();
     });
@@ -33,8 +36,10 @@ export class VoteComponent implements OnInit {
 
   nextVote() {
     if (this.combinations.length > 0) {
-      this.chosen = this.combinations.shift();
+      let comb=this.combinations.shift();
+      this.chosen=(new Chosen(comb.shift(),comb.shift()));
     } else {
+
       this.chosen = null;
       this.router.navigate(['/home']);
     }
@@ -54,14 +59,15 @@ export class VoteComponent implements OnInit {
   choose(isLeft: boolean) {
     let rate: RateViewModel;
     if (isLeft) {
-      rate = new RateViewModel(this.chosen[0], this.chosen[1]);
+      rate = new RateViewModel(this.chosen.left, this.chosen.right);
     } else {
-      rate = new RateViewModel(this.chosen[1], this.chosen[0]);
+      rate = new RateViewModel(this.chosen.right, this.chosen.left);
     }
 
     this.movieService.rate(rate).subscribe((res) => {
-      this.nextVote();
+      
     }, (err) => console.log(err));
+    this.nextVote();
 
   }
 

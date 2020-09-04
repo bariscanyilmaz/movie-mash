@@ -1,14 +1,16 @@
-<p class="txt-center">{{combinations.length}} combinations remain</p>
-<p class="txt-center">Whic is better. Choose to click or use your arrow keys</p>
-<div class="container" *ngIf="chosen">
-    <div class="chosen" (click)="choose(true)">
-        <img [src]="chosen[0].poster" class="poster" [alt]="chosen[0].name">
-        <h4 class="txt-center">{{chosen[0].imdbScore}}</h4>
-    </div>
-    <h4 class="or">OR</h4>
-    <div class="chosen" (click)="choose(false)">
-        <img [src]="chosen[1].poster" class="poster" [alt]="chosen[1].name">
-        <h4 class="txt-center">{{chosen[1].imdbScore}}</h4>
-    </div>
+<ng-template [ngIf]="combinations">
+    <p class="txt-center">{{combinations.length }} combinations remain</p>
+    <p class="txt-center">Whic is better. Choose to click or use your arrow keys</p>
+    <div class="container" *ngIf="chosen">
+        <div class="chosen" (click)="choose(true)">
+            <img [src]="chosen.left.poster" class="poster" [alt]="chosen.left.name">
+            <h4 class="txt-center">{{chosen.left.imdbScore}}</h4>
+        </div>
+        <h4 class="or">OR</h4>
+        <div class="chosen" (click)="choose(false)">
+            <img [src]="chosen.right.poster" class="poster" [alt]="chosen.right.name">
+            <h4 class="txt-center">{{chosen.right.imdbScore}}</h4>
+        </div>
 
-</div>
+    </div>
+</ng-template>
