@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 
 namespace MovieMash.Models
 {
-    public interface IMovieRepository:IDisposable
+    public interface IMovieRepository
     {   
         Movie Get(int id);
-        Task<Movie> Update(Movie entity);
+        Movie Update(Movie entity);
         IQueryable<Movie> GetAll();
 
 

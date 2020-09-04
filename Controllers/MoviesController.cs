@@ -26,20 +26,20 @@ namespace MovieMash.Controllers
 
         [HttpPost("Rate")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Rate([FromBody] RateViewModel model)
+        public IActionResult Rate([FromBody] RateViewModel model)
         {
             var winner = _movieRepository.Get(model.WinnerId);
             var loser = _movieRepository.Get(model.LoserId);
             var results = _ratingService.Rate(winner, loser);
 
-            await _movieRepository.Update(results.winner);
-            await _movieRepository.Update(results.loser);
+            _movieRepository.Update(results.winner);
+            _movieRepository.Update(results.loser);
 
 
             return Ok();
         }
 
-        
+
     }
 
 }

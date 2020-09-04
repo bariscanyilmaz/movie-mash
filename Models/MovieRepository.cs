@@ -15,33 +15,28 @@ namespace MovieMash.Models
         public Movie Get(int id)
         {
             var movie=_dbContext.Movies.SingleOrDefault(m => m.Id == id);
-            _dbContext.Dispose();
+            
             return movie;
         }
 
         public IQueryable<Movie> GetAll()
         {
             var movies=_dbContext.Movies;
-            _dbContext.Dispose();
             return movies;
         }
 
-        public async Task<Movie> Update(Movie entity)
+        public Movie Update(Movie entity)
         {
             var movie = _dbContext.Movies.SingleOrDefault(m => m.Id == entity.Id);
             if (movie != null)
             {
                 movie.Score = entity.Score;
-                await _dbContext.SaveChangesAsync();
+                _dbContext.SaveChanges();
             }
-            _dbContext.Dispose();
             return movie;
         }
 
-        public void Dispose()
-        {
-            _dbContext.Dispose();
-        }
+        
 
        
     }
