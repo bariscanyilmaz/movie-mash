@@ -17,9 +17,11 @@ export class HomeComponent implements OnInit {
 
 
   ngOnInit(): void {
+    
     this.movieService.getAll().subscribe(r => {
       this.movies = r.sort((a, b) => b.score - a.score);
     }, err => console.error(err))
+
 
   }
 

@@ -19,13 +19,15 @@ export class VoteComponent implements OnInit {
   chosen:Chosen;
 
   constructor(private movieService: MovieService,private router:Router) {
-
+    
   }
 
   ngOnInit(): void {
-    this.movieService.getAll().subscribe(res => {
+    
+    this.combinations=new Array<Array<Movie>>();
+    this.movieService.getCombinations().subscribe(res => {
       
-      this.combinations =(k_combinations(res, 2).shuffle());
+      this.combinations =res.shuffle();
 
     }, err => console.error(err), () => {
       this.nextVote();
