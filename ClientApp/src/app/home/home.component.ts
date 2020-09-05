@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
     
     this.movieService.getAll().subscribe(r => {
       this.movies = r.sort((a, b) => b.score - a.score);
-    }, err => console.error(err))
+    }, err => console.log('home error'+err))
 
 
   }

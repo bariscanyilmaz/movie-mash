@@ -29,7 +29,7 @@ export class VoteComponent implements OnInit {
       
       this.combinations =res.shuffle();
 
-    }, err => console.error(err), () => {
+    }, err => console.log('combinations error'+err), () => {
       this.nextVote();
     });
 
@@ -37,6 +37,7 @@ export class VoteComponent implements OnInit {
   }
 
   nextVote() {
+    
     if (this.combinations.length > 0) {
       let comb=this.combinations.shift();
       this.chosen=(new Chosen(comb.shift(),comb.shift()));
@@ -45,7 +46,6 @@ export class VoteComponent implements OnInit {
       this.chosen = null;
       this.router.navigate(['/home']);
     }
-
   }
 
   @HostListener('window:keydown', ['$event'])
@@ -67,8 +67,8 @@ export class VoteComponent implements OnInit {
     }
 
     this.movieService.rate(rate).subscribe((res) => {
-      
-    }, (err) => console.log(err));
+      console.log('rated')
+    }, (err) => console.log('choose error'+err));
     this.nextVote();
 
   }
