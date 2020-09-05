@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MovieMash.Models;
 using MovieMash.Services;
@@ -28,17 +27,23 @@ namespace MovieMash.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Rate([FromBody] RateViewModel model)
         {
-            var winner = _movieRepository.Get(model.WinnerId);
-            var loser = _movieRepository.Get(model.LoserId);
-            var results = _ratingService.Rate(winner, loser);
+            try
+            {
+                var winner = _movieRepository.Get(model.WinnerId);
+                var loser = _movieRepository.Get(model.LoserId);
+                var results = _ratingService.Rate(winner, loser);
 
-            _movieRepository.Update(results.winner);
-            _movieRepository.Update(results.loser);
+                _movieRepository.Update(results.winner);
+                _movieRepository.Update(results.loser);
 
-
-            return Ok();
+                return Ok();
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(ex);
+            }
+            
         }
-
 
     }
 
