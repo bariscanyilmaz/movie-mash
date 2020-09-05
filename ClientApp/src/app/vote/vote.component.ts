@@ -38,7 +38,7 @@ export class VoteComponent implements OnInit {
 
   nextVote() {
     
-    if (this.combinations.length > 0) {
+    if (this.combinations[0]) {
       let comb=this.combinations.shift();
       this.chosen=(new Chosen(comb.shift(),comb.shift()));
     } else {
