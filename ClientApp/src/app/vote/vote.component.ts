@@ -3,7 +3,6 @@ import { MovieService } from '../services/movie.service';
 import { Movie } from '../models/movie';
 import { Chosen } from "../models/chosen";
 import { RateViewModel } from '../models/rateViewModel';
-import { k_combinations, combinations } from "../utility";
 import { Router } from '@angular/router';
 
 

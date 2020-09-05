@@ -4,7 +4,6 @@ import { XsrfInterceptor} from './services/xsrf.interceptor'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { MovieService } from './services/movie.service';
 import { HomeComponent } from './home/home.component';
 import { VoteComponent } from './vote/vote.component';
 
