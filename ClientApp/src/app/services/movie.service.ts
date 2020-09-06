@@ -22,7 +22,7 @@ export class MovieService {
     this.http.get<Movie[]>('/api/Movies').subscribe(res => { 
       this.movies=res;
       this._movies.next(res) 
-    },err=>{console.log('error'+err)});
+    },(err:Error)=>{console.log(err)});
     return this._movies.asObservable();
   
   }

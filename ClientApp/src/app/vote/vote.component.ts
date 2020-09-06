@@ -28,7 +28,7 @@ export class VoteComponent implements OnInit {
       
       this.combinations =res.shuffle();
 
-    }, err => console.log('combinations error'+err), () => {
+    }, (err:Error) => console.log(err), () => {
       this.nextVote();
     });
 
@@ -66,8 +66,8 @@ export class VoteComponent implements OnInit {
     }
 
     this.movieService.rate(rate).subscribe((res) => {
-      console.log('rated')
-    }, (err) => console.log('choose error'+err));
+    }, (err:Error) => console.log(err));
+    
     this.nextVote();
 
   }
