@@ -11,14 +11,20 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class XsrfInterceptor implements HttpInterceptor {
 
-  constructor(private xsrfTokenExtractor:HttpXsrfTokenExtractor) {}
+  constructor(private xsrfTokenExtractor: HttpXsrfTokenExtractor) { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    let xsrfToken=this.xsrfTokenExtractor.getToken();
-    let newHeaders=request.headers.set("X-XSRF-TOKEN",xsrfToken)
-    if (request.method=="POST") {
-      let authorizedReq=request.clone({withCredentials:true,headers:newHeaders});
-      return next.handle(authorizedReq);
+    let xsrfToken = this.xsrfTokenExtractor.getToken();
+    let newHeaders = request.headers.set("X-XSRF-TOKEN", xsrfToken)
+    if (request.method == "POST") {
+      if (this.xsrfTokenExtractor != null && newHeaders != null) {
+        let authorizedReq = request.clone({ withCredentials: true, headers: newHeaders });
+        
+        console.log('request allowed');
+
+        return next.handle(authorizedReq);
+      }
+
     }
     return next.handle(request);
   }
