@@ -1,27 +1,28 @@
-
 name: CI
 
 on:
   push:
+    paths-ignore:
+      - "README.md"
     branches:
-    - master
-    - release/*
+      - master
+      - release/*
 
 jobs:
   build_movie-mash:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - uses: jwsi/secret-parser@v1
-      with:
+      - uses: actions/checkout@v1
+      - uses: jwsi/secret-parser@v1
+        with:
           filename: appsettings.json
           secret-name: connection_string
           secret-value: ${{ secrets.connection_string }}
-    - name: Build and deploy the Docker image
-      env: 
-        HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
-        APP_NAME: ${{ 'movie-mash' }}
-      run: |
-        docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
-        heroku container:push web -a $APP_NAME
-        heroku container:release web -a $APP_NAME
+      - name: Build and deploy the Docker image
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          APP_NAME: ${{ 'movie-mash' }}
+        run: |
+          docker login --username=_ --password=$HEROKU_API_KEY registry.heroku.com
+          heroku container:push web -a $APP_NAME
+          heroku container:release web -a $APP_NAME
