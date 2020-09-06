@@ -65,10 +65,10 @@ namespace MovieMash
 
             app.Use(next => context =>
             {
-                if (context.Request.Path.Value.IndexOf("/api/Movies/Rate", StringComparison.OrdinalIgnoreCase) != -1)
+                if (context.Request.Path.Value.Contains("/api/Movies/Rate"))
                 {
                     var tokens = antiforgery.GetAndStoreTokens(context);
-                    context.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken, new CookieOptions() { HttpOnly = false, Path = "/" });
+                    context.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken);
                 }
 
                 return next(context);

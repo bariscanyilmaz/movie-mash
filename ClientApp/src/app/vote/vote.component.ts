@@ -66,7 +66,7 @@ export class VoteComponent implements OnInit {
     }
 
     this.movieService.rate(rate).subscribe((res) => {
-      console.log(res);
+
     }, (err:Error) => console.log(err));
 
     this.nextVote();
