@@ -18,7 +18,7 @@ export class XsrfInterceptor implements HttpInterceptor {
     let newHeaders = request.headers.set("X-XSRF-TOKEN", xsrfToken)
     console.log(xsrfToken)
     if (request.method == "POST") {
-      if (this.xsrfTokenExtractor != null && newHeaders != null) {
+      if (xsrfToken != null && newHeaders != null) {
         let authorizedReq = request.clone({ withCredentials: true, headers: newHeaders });
         return next.handle(authorizedReq);
       }

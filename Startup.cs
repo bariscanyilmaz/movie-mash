@@ -1,8 +1,7 @@
-using System;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -16,11 +15,11 @@ namespace MovieMash
 {
     public class Startup
     {
-        
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            
+
         }
 
         public IConfiguration Configuration { get; }
@@ -31,12 +30,12 @@ namespace MovieMash
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
 
-            services.AddDbContext<MovieDbContext>(options=>options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),sqlOptions=>sqlOptions.EnableRetryOnFailure()));
+            services.AddDbContext<MovieDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), sqlOptions => sqlOptions.EnableRetryOnFailure()));
 
             services.AddTransient<IMovieRepository, MovieRepository>();
             services.AddTransient<IRatingService, EloRatingService>();
-            
-            
+
+
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
@@ -65,11 +64,10 @@ namespace MovieMash
 
             app.Use(next => context =>
             {
-                if (context.Request.Path.Value.Contains("/api/Movies/Rate"))
-                {
-                    var tokens = antiforgery.GetAndStoreTokens(context);
-                    context.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken);
-                }
+
+                var tokens = antiforgery.GetAndStoreTokens(context);
+                context.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken, new CookieOptions() { HttpOnly = false, Path = "/", Secure = true });
+                
 
                 return next(context);
             });
