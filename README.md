@@ -8,9 +8,11 @@ A basic example of how elo rating algorithm works.
 
 Available on [heroku](https://movie-mash.herokuapp.com).
 
+![Demo Gig][Gif]
+
 ## Article 
 
-Turkish article on [medium](https://medium.com/@bariscanyilmaz).
+Turkish article on [medium](https://medium.com/bursa-i-o/elo-derecelendirme-sistemi-2369ba4de47f).
 
 ## Technologies which I used
 
@@ -39,3 +41,4 @@ All of this technologies above are optional.
 [geekforgeeks]:https://www.geeksforgeeks.org/elo-rating-algorithm/
 [wikipedia]:https://en.wikipedia.org/wiki/Elo_rating_system
 [chearsheetmd]:https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
+[Gif]:https://miro.medium.com/max/700/1*CnA2VBrkfyK5MGT7owj86A.gif
