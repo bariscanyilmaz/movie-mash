@@ -24,7 +24,7 @@ namespace MovieMash.Models
             return movies;
         }
 
-        public Movie Update(Movie entity)
+        public void Update(Movie entity)
         {
             var movie = _dbContext.Movies.SingleOrDefault(m => m.Id == entity.Id);
             if (movie != null)
@@ -32,11 +32,6 @@ namespace MovieMash.Models
                 movie.Score = entity.Score;
                 _dbContext.SaveChanges();
             }
-            return movie;
         }
-
-        
-
-       
     }
 }

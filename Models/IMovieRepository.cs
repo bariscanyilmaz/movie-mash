@@ -7,7 +7,7 @@ namespace MovieMash.Models
     public interface IMovieRepository
     {   
         Movie Get(int id);
-        Movie Update(Movie entity);
+        void Update(Movie entity);
         IQueryable<Movie> GetAll();
 
 

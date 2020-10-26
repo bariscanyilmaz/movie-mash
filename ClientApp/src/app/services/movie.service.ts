@@ -11,7 +11,7 @@ import { k_combinations } from '../utility';
 })
 export class MovieService {
 
-  private _movies: Subject<Movie[]>=new Subject<Movie[]>();
+  private _movies: Subject<Movie[]> = new Subject<Movie[]>();
   private movies: Movie[];
 
   constructor(private http: HttpClient) {

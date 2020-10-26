@@ -36,7 +36,7 @@ namespace MovieMash.Controllers
                 _movieRepository.Update(results.winner);
                 _movieRepository.Update(results.loser);
 
-                return Ok();
+                return Ok(model);
             }
             catch (System.Exception ex)
             {

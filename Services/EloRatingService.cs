@@ -16,7 +16,7 @@ namespace MovieMash.Services
         public (Movie winner, Movie loser) Rate(Movie winner, Movie loser)
         {
 
-            double winnerProbibility = Probibility((float)winner.Score, (float)loser.Score);
+            double winnerProbibility = Probibility(winner.Score, loser.Score);
             double loserPobibiliy = 1 - winnerProbibility;
 
             winner.Score += K * (1 - winnerProbibility);
@@ -26,13 +26,11 @@ namespace MovieMash.Services
 
         }
 
-        private double Probibility(float winnerScore, float loserScore)
+        private double Probibility(double winnerScore, double loserScore)
         {
-            //return pobibility of winner player
-            //return 1.0f/(1+Math.Pow(10,((loserScore-winnerScore)/400)));           
-
-            return 1.0f / (1 + 1.0f *
-                   (Math.Pow(10, 1.0f *
+ 
+            return 1.0d / (1 + 1.0d *
+                   (Math.Pow(10, 1.0d *
                      (loserScore - winnerScore) / 400)));
                      
         }

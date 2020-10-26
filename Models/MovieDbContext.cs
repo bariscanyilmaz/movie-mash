@@ -9,11 +9,7 @@ namespace MovieMash.Models
 
         }
 
-
         public DbSet<Movie> Movies { get; set; }
-
-        
-
 
     }
 
