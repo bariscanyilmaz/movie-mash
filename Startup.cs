@@ -30,7 +30,7 @@ namespace MovieMash
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
 
-            services.AddDbContext<MovieDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), sqlOptions => sqlOptions.EnableRetryOnFailure()));
+            services.AddDbContext<MovieDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"), sqlOptions => sqlOptions.EnableRetryOnFailure()));
 
             services.AddTransient<IMovieRepository, MovieRepository>();
             services.AddTransient<IRatingService, EloRatingService>();
@@ -67,7 +67,7 @@ namespace MovieMash
 
                 var tokens = antiforgery.GetAndStoreTokens(context);
                 context.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken, new CookieOptions() { HttpOnly = false, Path = "/", Secure = true });
-                
+
 
                 return next(context);
             });
