@@ -21,7 +21,7 @@ Turkish article on [medium](https://medium.com/bursa-i-o/elo-derecelendirme-sist
 * Heroku for free Hosting
 * Docker for run on heroku
 * Github Actions for Deploying
-* AWS RDS SqlServer just for free sql server
+* Heroku Postgres Hobby Dev Addon for Databse 
 
 All of this technologies above are optional. 
 
