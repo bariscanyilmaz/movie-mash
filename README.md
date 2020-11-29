@@ -13,6 +13,7 @@ Available on [heroku](https://movie-mash.herokuapp.com).
 ## Article 
 
 Turkish article on [medium](https://medium.com/bursa-i-o/elo-derecelendirme-sistemi-2369ba4de47f).
+
 English article on [devto](https://dev.to/bariscanyilmaz/elo-rating-system-1o2l).
 
 ## Technologies which I used
